@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import './App.css';
 import UserList from './components/UserList'
-import GroupList from './components/GroupList'
 import AddUser from "./components/AddUser";
+import GroupList from './components/GroupList'
+import AddGroup from "./components/AddGroup";
 import Tabs from 'react-bootstrap/Tabs'
 import Tab from 'react-bootstrap/Tab'
 import Button from "react-bootstrap/Button";
@@ -23,7 +24,9 @@ const App = () => {
 
     const [users, setUsers] = useState(usersData);
     let [userIdCount, setUserIdCount] = useState(usersData.length);
+
     const [groups, setGroups] = useState(groupsData);
+    let [groupIdCount, setGroupIdCount] = useState(groupsData.length);
 
     const addUser = user => {
         user.id = ++userIdCount;
@@ -34,6 +37,13 @@ const App = () => {
 
     const deleteUser = id => {
         setUsers(users.filter(user => user.id !== id));
+    };
+
+    const addGroup = group => {
+        group.id = ++groupIdCount;
+        setGroupIdCount(group.id);
+        console.log("app group obj = ", group);
+        setGroups([ ...groups, group ]);
     };
 
     const deleteGroup = id => {
@@ -54,8 +64,10 @@ const App = () => {
                     <UserList className="tab-content" users={users} deleteUser={deleteUser} />
                 </Tab>
                 <Tab eventKey="groupsList" title="Groups List">
+                    <div className="padding-1">
+                        <AddGroup addGroup={addGroup}/>
+                    </div>
                     <GroupList className="tab-content" groups={groups} deleteGroup={deleteGroup} />
-                    <Button variant="outline-primary">Add Group</Button>
                 </Tab>
             </Tabs>
         </div>
