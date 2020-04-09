@@ -3,24 +3,22 @@ import PropTypes from 'prop-types';
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 
-const UserList = ({users, deleteUser})  => (
+const GroupList = ({groups, deleteGroup})  => (
     <Table bordered size="md">
-            <thead className="thead-light">
+        <thead className="thead-light">
             <tr>
                 <th>#</th>
-                <th>Last Name</th>
-                <th>First Name</th>
+                <th>Group Name</th>
                 <th>Actions</th>
             </tr>
         </thead>
-        {users.map((user, index) => (
-            <tbody  key={index}>
+        {groups.map((group, index) => (
+            <tbody key={index}>
                 <tr>
                     <td>{index + 1}</td>
-                    <td>{user.lastName}</td>
-                    <td>{user.firstName}</td>
+                    <td>{group.name}</td>
                     <td>
-                        <Button variant="outline-primary" onClick={() => deleteUser(user.id)}>Delete</Button>
+                        <Button variant="outline-primary" onClick={() => deleteGroup(group.id)}>Delete</Button>
                     </td>
                 </tr>
             </tbody>
@@ -28,9 +26,9 @@ const UserList = ({users, deleteUser})  => (
     </Table>
 );
 
-UserList.propTypes = {
-    users: PropTypes.array,
+GroupList.propTypes = {
+    groups: PropTypes.array,
     onSelectFile: PropTypes.func,
 };
 
-export default UserList
+export default GroupList
