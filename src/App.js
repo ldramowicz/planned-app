@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './App.css';
 import UserList from './components/UserList'
 import AddUser from "./components/AddUser";
+import EditUser from "./components/EditUser"
 import GroupList from './components/GroupList'
 import AddGroup from "./components/AddGroup";
 import Tabs from 'react-bootstrap/Tabs'
@@ -40,9 +41,9 @@ const App = () => {
     const editUser = id => {
         console.log("Edit user id = ", id);
         let result = users.filter(user => user.id === id);
-        console.log("result = ", result);
+        console.log("result = ", result[0]);
         setEditingUser(true);
-        setCurrentUser(result)
+        setCurrentUser(result[0])
     };
 
     const updateUser = (id, updatedUser) => {
@@ -71,9 +72,26 @@ const App = () => {
             <Tabs id="PageTabs" defaultActiveKey="users">
                 <Tab eventKey="users" title="Manage Users">
                     <div className="padding-1">
-                        <AddUser addUser={addUser} currentUser={currentUser} isEditingUser={isEditingUser} setEditingUser={setEditingUser}/>
+                        {isEditingUser ?
+                            <EditUser
+                                currentUser={currentUser}
+                                isEditingUser={isEditingUser}
+                                setEditingUser={setEditingUser}
+                                updateUser={updateUser}
+                            /> :
+                            <AddUser addUser={addUser}/>
+                        }
                     </div>
-                    <UserList className="tab-content" users={users} editUser={editUser} deleteUser={deleteUser} />
+                   {/* <div className="padding-1">
+                        <AddUser
+                            addUser={addUser}
+                            currentUser={currentUser}
+                            isEditingUser={isEditingUser}
+                            setEditingUser={setEditingUser}
+                            updateUser={updateUser}
+                        />
+                    </div>*/}
+                    <UserList className="tab-content" users={users} editUser={editUser} deleteUser={deleteUser} isEditingUser={isEditingUser} />
                 </Tab>
                 <Tab eventKey="groupsList" title="Manage Groups">
                     <div className="padding-1">

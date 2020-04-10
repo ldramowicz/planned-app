@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 
-const UserList = ({users, deleteUser, editUser})  => (
+const UserList = ({users, deleteUser, editUser, isEditingUser})  => (
     <Table bordered size="md">
             <thead className="thead-light">
             <tr>
@@ -13,9 +13,9 @@ const UserList = ({users, deleteUser, editUser})  => (
                 <th>Actions</th>
             </tr>
         </thead>
-        {users.map((user, index) => (
-            <tbody  key={index}>
-                <tr>
+        <tbody>
+            {users.map((user, index) => (
+                <tr key={index} isEditingUser>
                     <td>{index + 1}</td>
                     <td>{user.lastName}</td>
                     <td>{user.firstName}</td>
@@ -24,8 +24,8 @@ const UserList = ({users, deleteUser, editUser})  => (
                         <Button variant="outline-primary" onClick={() => editUser(user.id)}>Edit</Button>
                     </td>
                 </tr>
-            </tbody>
-        ))}
+            ))}
+        </tbody>
     </Table>
 );
 
