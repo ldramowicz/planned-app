@@ -24,7 +24,9 @@ const App = () => {
 
     const [users, setUsers] = useState(usersData);
     let [userIdCount, setUserIdCount] = useState(usersData.length);
+    const [isEditingUser, setEditingUser] = useState(false);
 
+    const [currentUser, setCurrentUser] = useState({id: null, firstName: '', lastName: ''});
     const [groups, setGroups] = useState(groupsData);
     let [groupIdCount, setGroupIdCount] = useState(groupsData.length);
 
@@ -33,6 +35,19 @@ const App = () => {
         setUserIdCount(user.id);
         console.log("app user obj = ", user);
         setUsers([ ...users, user ]);
+    };
+
+    const editUser = id => {
+        console.log("Edit user id = ", id);
+        let result = users.filter(user => user.id === id);
+        console.log("result = ", result);
+        setEditingUser(true);
+        setCurrentUser(result)
+    };
+
+    const updateUser = (id, updatedUser) => {
+        setEditingUser(false)
+        setUsers(users.map(user => (user.id === id ? updatedUser : user)))
     };
 
     const deleteUser = id => {
@@ -53,17 +68,14 @@ const App = () => {
     return (
         <div>
             <h1 className="text-center">Planned App</h1>
-            <Tabs id="PageTabs" defaultActiveKey="usersList">
-                <Tab eventKey="usersList" title="Users List">
-                    <UserList className="tab-content" users={users} deleteUser={deleteUser} />
-                </Tab>
-                <Tab eventKey="addUser" title="Add User">
+            <Tabs id="PageTabs" defaultActiveKey="users">
+                <Tab eventKey="users" title="Manage Users">
                     <div className="padding-1">
-                        <AddUser addUser={addUser}/>
+                        <AddUser addUser={addUser} currentUser={currentUser} isEditingUser={isEditingUser} setEditingUser={setEditingUser}/>
                     </div>
-                    <UserList className="tab-content" users={users} deleteUser={deleteUser} />
+                    <UserList className="tab-content" users={users} editUser={editUser} deleteUser={deleteUser} />
                 </Tab>
-                <Tab eventKey="groupsList" title="Groups List">
+                <Tab eventKey="groupsList" title="Manage Groups">
                     <div className="padding-1">
                         <AddGroup addGroup={addGroup}/>
                     </div>
