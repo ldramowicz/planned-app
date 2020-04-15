@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 
 const AddGroup = ({addGroup}) => {
-    const defaultFormInfo = {id: null, name: ''};
+    const defaultFormInfo = {value: null, label: ''};
     const [group, setGroup] = useState(defaultFormInfo);
     const [error, setError] = useState(false);
 
@@ -19,7 +19,7 @@ const AddGroup = ({addGroup}) => {
             <form
                 onSubmit={event => {
                     event.preventDefault();
-                    if (!group.name) {
+                    if (!group.label) {
                         setError(true);
                         return;
                     }
@@ -30,7 +30,7 @@ const AddGroup = ({addGroup}) => {
                 }}
             >
                 <label>Group name</label>{' '}
-                <input type="text" name="name" value={group.name} onChange={onInputChange} />{' '}
+                <input type="text" name="label" value={group.label} onChange={onInputChange} />{' '}
                 <Button type="submit" variant="outline-primary">Add Group</Button>
             </form>
         </div>
