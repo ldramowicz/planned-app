@@ -18,23 +18,24 @@ const GroupList = ({groups, deleteGroup, editGroup, users})  => {
             <th>Actions</th>
         </tr>
         </thead>
-        {sortedGroups.map((group, index) => (
-            <tbody key={index}>
-            <tr>
-                <td>{index + 1}</td>
-                <td>{group.label}</td>
-                <td>{users.map(user => (
-                    _.includes(user.groups, group.value) ?
-                        <div>{user.lastName + ' ' + user.firstName}</div> : null
-                ))}</td>
-                <td>
-                    <Button variant="outline-primary" onClick={() => deleteGroup(group.value)}>Delete
-                        Group</Button>{' '}
-                    <Button variant="outline-primary" onClick={() => editGroup(group.value)}>Edit Group</Button>
-                </td>
-            </tr>
-            </tbody>
-        ))}
+        <tbody>
+            {sortedGroups.map((group, index) => (
+                <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{group.label}</td>
+                    <td>{users.map((user, index) => (
+                        _.includes(user.groups, group.value) ?
+                            <div key={index}>{user.lastName + ' ' + user.firstName}</div> : null
+                        ))}
+                    </td>
+                    <td>
+                        <Button variant="outline-primary" onClick={() => deleteGroup(group.value)}>Delete
+                            Group</Button>{' '}
+                        <Button variant="outline-primary" onClick={() => editGroup(group.value)}>Edit Group</Button>
+                    </td>
+                </tr>
+            ))}
+        </tbody>
     </Table>
 };
 

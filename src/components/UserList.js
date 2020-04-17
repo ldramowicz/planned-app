@@ -20,21 +20,21 @@ const UserList = ({users, deleteUser, editUser, isEditingUser, groups})  => {
         </tr>
         </thead>
         <tbody>
-        {sortedUsers.map((user, index) => {
-            const userGroups = user.groups
-            return <tr key={index}>
-                <td>{index + 1}</td>
-                <td>{user.lastName}</td>
-                <td>{user.firstName}</td>
-                <td>{userGroups.map(userGroup => {
-                    return <div>{_.find(groups, {'value':  userGroup}).label}</div>;
-                })}</td>
-                <td>
-                    <Button variant="outline-primary" onClick={() => deleteUser(user.id)}>Delete User</Button>{' '}
-                    <Button variant="outline-primary" onClick={() => editUser(user.id)}>Edit User</Button>
-                </td>
-            </tr>
-        })}
+            {sortedUsers.map((user, index) => {
+                const userGroups = user.groups
+                return <tr key={index}>
+                    <td>{index + 1}</td>
+                    <td>{user.lastName}</td>
+                    <td>{user.firstName}</td>
+                    <td>{userGroups.map((userGroup, index) => {
+                        return <div key={index}>{_.find(groups, {'value':  userGroup}).label}</div>;
+                    })}</td>
+                    <td>
+                        <Button variant="outline-primary" onClick={() => deleteUser(user.id)}>Delete User</Button>{' '}
+                        <Button variant="outline-primary" onClick={() => editUser(user.id)}>Edit User</Button>
+                    </td>
+                </tr>
+            })}
         </tbody>
     </Table>
 };
