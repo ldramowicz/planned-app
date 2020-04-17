@@ -11,7 +11,6 @@ const AddGroup = ({addGroup}) => {
 
     const onInputChange = event => {
         const {name, value} = event.target;
-        console.log("name = ", name, value);
         setGroup({...group, [name]: value})
     };
 

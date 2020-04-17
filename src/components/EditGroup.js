@@ -10,7 +10,6 @@ const EditGroup= ({currentGroup, setEditingGroup, updateGroup}) => {
 
     const onInputChange = event => {
         const {name, value} = event.target;
-        console.log("name = ", name, value);
         setGroup({...group, [name]: value})
     };
 
@@ -38,7 +37,7 @@ const EditGroup= ({currentGroup, setEditingGroup, updateGroup}) => {
 };
 
 EditGroup.propTypes = {
-    currentGroup: PropTypes.func,
+    currentGroup: PropTypes.object,
     setEditingGroup: PropTypes.func,
     updateGroup: PropTypes.func,
 };

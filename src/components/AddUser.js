@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Select from 'react-select';
-import map from 'lodash/map';
+const _ = require('lodash');
 
 const AddUser = ({addUser, groups}) => {
 
@@ -14,15 +14,11 @@ const AddUser = ({addUser, groups}) => {
 
     const handleChange = event => {
         const {name, value } = event.target;
-        console.log("values = ",  value);
         setUser({...user, [name]: value});
     };
 
     const handleMultiSelectChange = selectedOptions => {
-        console.log("selectedOptions = ",  selectedOptions);
-        //setUser({...user, 'groups': selectedOptions});
-        setUser({...user, 'groups': map(selectedOptions, 'value')});
-        console.log("user = ",  user);
+        setUser({...user, 'groups': _.map(selectedOptions, 'value')});
         setSelected(selectedOptions)
     };
 
@@ -36,7 +32,6 @@ const AddUser = ({addUser, groups}) => {
                         setError(true);
                         return;
                     }
-                    //setUser(defaultFormInfo)
                     addUser(user);
                     setSelected([])
                     setUser(defaultFormInfo)
@@ -53,7 +48,7 @@ const AddUser = ({addUser, groups}) => {
                 </div>
                 <div className="form-group">
                     <label>Select groups this user belongs to</label>
-                    <Select isMulti value={selected} options={groups} onChange={handleMultiSelectChange} />
+                    <Select isMulti value={selected} options={_.sortBy(groups, ['label'])} onChange={handleMultiSelectChange} />
                 </div>
                 <Button type="submit" variant="outline-primary">Add User</Button>{' '}
                 <Button variant="outline-primary" onClick={() => setUser(defaultFormInfo)}>Cancel</Button>

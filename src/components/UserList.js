@@ -21,7 +21,7 @@ const UserList = ({users, deleteUser, editUser, groups})  => {
         </thead>
         <tbody>
             {sortedUsers.map((user, index) => {
-                const userGroups = user.groups
+                const userGroups = user.groups;
                 return <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{user.lastName}</td>

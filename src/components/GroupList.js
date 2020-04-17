@@ -41,7 +41,9 @@ const GroupList = ({groups, deleteGroup, editGroup, users})  => {
 
 GroupList.propTypes = {
     groups: PropTypes.array,
-    onSelectFile: PropTypes.func,
+    deleteGroup: PropTypes.func,
+    editGroup: PropTypes.func,
+    users: PropTypes.array
 };
 
 export default GroupList

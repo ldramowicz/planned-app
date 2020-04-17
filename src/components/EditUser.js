@@ -17,41 +17,13 @@ const EditUser = ({currentUser, setEditingUser, updateUser, groups}) => {
 
     const onInputChange = event => {
         const {name, value} = event.target;
-        console.log("name = ", name, value);
         setUser({...user, [name]: value})
     };
 
     const handleMultiSelectChange = selectedOptions => {
-        console.log("selectedOptions = ",  selectedOptions);
-        //setUser({...user, 'groups': selectedOptions});
         setUser({...user, 'groups': _.map(selectedOptions, 'value')});
         setSelected(selectedOptions)
     };
-
-/*    for (let i in groups) {
-        console.log("loop", groups[i].value, user.groups[i])
-        if (user.groups[i].includes(groups[i].value)) {
-            console.log(groups[i]); // {a: 5, b: 6}
-        }
-    };*/
-
-/*
-    setSelected(groups.filter(group => {
-        return _.includes(user.groups, group.value);
-    }))
-*/
-
-/*    const filtered = groups.filter(group => {
-        return _.includes(user.groups, group.value);
-    })*/
-
-    //console.log("filtered = ", filtered)
-
-/*    const userGroups = user.groups
-    userGroups.map((userGroup, index) => {
-        console.log(groups.filter(group => group.value === userGroup))
-    })*/
-/*    console.log("Edit user", groups.map(group => (_.includes(user.groups, group.value) ? setSelected(...selected, group) : setSelected(selected))))*/
 
     return (
         <div>
@@ -77,7 +49,7 @@ const EditUser = ({currentUser, setEditingUser, updateUser, groups}) => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="exampleFormControlSelect2">Select groups this user belongs to</label>
-                    <Select isMulti value={selected} options={groups} onChange={handleMultiSelectChange} />
+                    <Select isMulti value={selected} options={_.sortBy(groups, ['label'])} onChange={handleMultiSelectChange} />
                 </div>
                 <Button type="submit" variant="outline-primary">Update User</Button>{' '}
                 <Button variant="outline-primary" onClick={() => setEditingUser(false)}>Cancel</Button>

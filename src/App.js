@@ -38,14 +38,11 @@ const App = () => {
     const addUser = user => {
         user.id = ++userIdCount;
         setUserIdCount(user.id);
-        console.log("app user obj = ", user);
         setUsers([ ...users, user ]);
     };
 
     const editUser = id => {
-        console.log("Edit user id = ", id);
         let result = users.find(user => user.id === id);
-        console.log("result = ", result);
         setEditingUser(true);
         setCurrentUser(result);
     };
@@ -62,7 +59,6 @@ const App = () => {
     const addGroup = group => {
         group.value = ++groupIdCount;
         setGroupIdCount(group.value);
-        console.log("app group obj = ", group);
         setGroups([ ...groups, group ]);
     };
 
