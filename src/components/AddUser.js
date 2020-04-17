@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
-import Button from "react-bootstrap/Button";
+import PropTypes from "prop-types";
 import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button";
 import Select from 'react-select';
 import map from 'lodash/map';
 
 const AddUser = ({addUser, groups}) => {
+
     const [selected, setSelected] = React.useState([]);
-    const defaultFormInfo = {id: null, groups: [selected], firstName: '', lastName: ''};
+    const defaultFormInfo = {id: null, groups: [], firstName: '', lastName: ''};
     const [user, setUser] = useState(defaultFormInfo);
     const [error, setError] = useState(false);
 
@@ -18,8 +20,9 @@ const AddUser = ({addUser, groups}) => {
 
     const handleMultiSelectChange = selectedOptions => {
         console.log("selectedOptions = ",  selectedOptions);
-        setUser({...user, 'groups': selectedOptions});
-        //setUser({...user, 'groups': map(selectedOptions, 'value')});
+        //setUser({...user, 'groups': selectedOptions});
+        setUser({...user, 'groups': map(selectedOptions, 'value')});
+        console.log("user = ",  user);
         //setSelected(selectedOptions)
     };
 
@@ -33,9 +36,9 @@ const AddUser = ({addUser, groups}) => {
                         setError(true);
                         return;
                     }
-                    addUser(user);
-                    setUser(defaultFormInfo)
                     setSelected([]);
+                    setUser(defaultFormInfo)
+                    addUser(user);
                     setError(false);
                 }}
             >
@@ -50,17 +53,17 @@ const AddUser = ({addUser, groups}) => {
                 <div className="form-group">
                     <label>Select groups this user belongs to</label>
                     <Select isMulti options={groups} onChange={handleMultiSelectChange} />
-                    {/*<select multiple name="groups" className="form-control" onChange={handleChange} value={groups.name}>
-                        {groups.map(element => {
-                            return <option value={element.id}>{element.name}</option>;
-                        })}
-                    </select>*/}
                 </div>
                 <Button type="submit" variant="outline-primary">Add User</Button>{' '}
                 <Button variant="outline-primary" onClick={() => setUser(defaultFormInfo)}>Cancel</Button>
             </form>
         </div>
     )
+};
+
+AddUser.propTypes = {
+    addUser: PropTypes.func,
+    groups: PropTypes.array,
 };
 
 export default AddUser

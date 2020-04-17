@@ -3,10 +3,9 @@ import PropTypes from "prop-types";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 
-const AddGroup = ({addGroup}) => {
+const EditGroup= ({currentGroup, setEditingGroup, updateGroup}) => {
 
-    const defaultFormInfo = {value: null, label: ''};
-    const [group, setGroup] = useState(defaultFormInfo);
+    const [group, setGroup] = useState({...currentGroup});
     const [error, setError] = useState(false);
 
     const onInputChange = event => {
@@ -25,21 +24,23 @@ const AddGroup = ({addGroup}) => {
                         setError(true);
                         return;
                     }
-                    addGroup(group);
-                    setGroup(defaultFormInfo);
+                    updateGroup(group.value, group);
                     setError(false);
                 }}
             >
                 <label>Group Name</label>{' '}
                 <input type="text" name="label" value={group.label} onChange={onInputChange} />{' '}
-                <Button type="submit" variant="outline-primary">Add Group</Button>
+                <Button type="submit" variant="outline-primary">Update Group</Button>{' '}
+                <Button variant="outline-primary" onClick={() => setEditingGroup(false)}>Cancel</Button>
             </form>
         </div>
     )
 };
 
-AddGroup.propTypes = {
-    addGroup: PropTypes.func,
+EditGroup.propTypes = {
+    currentGroup: PropTypes.func,
+    setEditingGroup: PropTypes.func,
+    updateGroup: PropTypes.func,
 };
 
-export default AddGroup
+export default EditGroup

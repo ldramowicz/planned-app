@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
-import Button from "react-bootstrap/Button";
+import PropTypes from "prop-types";
 import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button";
 import Select from 'react-select';
 
+const _ = require('lodash');
+
 const EditUser = ({currentUser, isEditingUser, setEditingUser, updateUser, groups}) => {
+
     const [user, setUser] = useState({...currentUser});
     const [error, setError] = useState(false);
-    const [selected, setSelected] = React.useState([]);
+    const [selected, setSelected] = React.useState(_.pullAllBy(groups, user.groups));
 
     const onInputChange = event => {
         const {name, value} = event.target;
@@ -20,6 +24,8 @@ const EditUser = ({currentUser, isEditingUser, setEditingUser, updateUser, group
         //setUser({...user, 'groups': map(selectedOptions, 'value')});
         //setSelected(selectedOptions)
     };
+
+    console.log("Edit user", _.pullAllBy(groups, user.groups))
 
     return (
         <div>
@@ -45,13 +51,21 @@ const EditUser = ({currentUser, isEditingUser, setEditingUser, updateUser, group
                 </div>
                 <div className="form-group">
                     <label htmlFor="exampleFormControlSelect2">Select groups this user belongs to</label>
-                    <Select isMulti defaultValue={user.groups} options={groups} onChange={handleMultiSelectChange} />
+                    <Select isMulti value={selected} options={groups} onChange={handleMultiSelectChange} />
                 </div>
                 <Button type="submit" variant="outline-primary">Update User</Button>{' '}
                 <Button variant="outline-primary" onClick={() => setEditingUser(false)}>Cancel</Button>
             </form>
         </div>
     )
+};
+
+EditUser.propTypes = {
+    currentUser: PropTypes.object,
+    isEditingUser: PropTypes.bool,
+    setEditingUser: PropTypes.func,
+    updateUser: PropTypes.bool,
+    groups: PropTypes.array,
 };
 
 export default EditUser
