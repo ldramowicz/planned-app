@@ -32,4 +32,4 @@ To create the app I have used the following:
 * React with create-react-app as template
 * react-bootstrap -> tabs, tables, forms and other page layouts
 * lodash -> array and object manipulation
-* ract-select -> multiselect form with a nice selected options display
+* react-select -> multiselect form with a nice selected options display
