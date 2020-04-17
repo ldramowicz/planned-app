@@ -37,8 +37,9 @@ const AddUser = ({addUser, groups}) => {
                         return;
                     }
                     setSelected([]);
-                    setUser(defaultFormInfo)
+                    //setUser(defaultFormInfo)
                     addUser(user);
+                    setUser(defaultFormInfo)
                     setError(false);
                 }}
             >
@@ -52,7 +53,7 @@ const AddUser = ({addUser, groups}) => {
                 </div>
                 <div className="form-group">
                     <label>Select groups this user belongs to</label>
-                    <Select isMulti options={groups} onChange={handleMultiSelectChange} />
+                    <Select isMulti value={[]} options={groups} onChange={handleMultiSelectChange} />
                 </div>
                 <Button type="submit" variant="outline-primary">Add User</Button>{' '}
                 <Button variant="outline-primary" onClick={() => setUser(defaultFormInfo)}>Cancel</Button>
