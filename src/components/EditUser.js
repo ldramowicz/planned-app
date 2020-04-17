@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Select from 'react-select';
-import includes from 'lodash/includes'
 
 const _ = require('lodash');
 
@@ -12,7 +11,9 @@ const EditUser = ({currentUser, setEditingUser, updateUser, groups}) => {
 
     const [user, setUser] = useState({...currentUser});
     const [error, setError] = useState(false);
-    const [selected, setSelected] = React.useState(user.groups);
+    const [selected, setSelected] = React.useState(groups.filter(group => {
+        return _.includes(user.groups, group.value);
+    }));
 
     const onInputChange = event => {
         const {name, value} = event.target;
@@ -34,11 +35,17 @@ const EditUser = ({currentUser, setEditingUser, updateUser, groups}) => {
         }
     };*/
 
-    const filtered = groups.filter(group => {
+/*
+    setSelected(groups.filter(group => {
         return _.includes(user.groups, group.value);
-    })
+    }))
+*/
 
-    console.log("filtered = ", filtered)
+/*    const filtered = groups.filter(group => {
+        return _.includes(user.groups, group.value);
+    })*/
+
+    //console.log("filtered = ", filtered)
 
 /*    const userGroups = user.groups
     userGroups.map((userGroup, index) => {
@@ -70,7 +77,7 @@ const EditUser = ({currentUser, setEditingUser, updateUser, groups}) => {
                 </div>
                 <div className="form-group">
                     <label htmlFor="exampleFormControlSelect2">Select groups this user belongs to</label>
-                    <Select isMulti value={filtered} options={groups} onChange={handleMultiSelectChange} />
+                    <Select isMulti value={selected} options={groups} onChange={handleMultiSelectChange} />
                 </div>
                 <Button type="submit" variant="outline-primary">Update User</Button>{' '}
                 <Button variant="outline-primary" onClick={() => setEditingUser(false)}>Cancel</Button>
@@ -82,7 +89,7 @@ const EditUser = ({currentUser, setEditingUser, updateUser, groups}) => {
 EditUser.propTypes = {
     currentUser: PropTypes.object,
     setEditingUser: PropTypes.func,
-    updateUser: PropTypes.bool,
+    updateUser: PropTypes.func,
     groups: PropTypes.array,
 };
 

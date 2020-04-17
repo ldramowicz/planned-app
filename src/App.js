@@ -78,10 +78,7 @@ const App = () => {
     };
 
     const deleteGroup = id => {
-        users.map(user => {
-            user.groups.filter(userGroup => userGroup !== id)
-            _.set(user, 'groups', user.groups.filter(userGroup => userGroup !== id));
-        })
+        users.map(user => _.set(user, 'groups', user.groups.filter(userGroup => userGroup !== id)));
         setGroups(groups.filter(group => group.value !== id));
     };
 
