@@ -5,7 +5,7 @@ import Table from 'react-bootstrap/Table'
 
 const _ = require('lodash');
 
-const UserList = ({users, deleteUser, editUser, isEditingUser, groups})  => {
+const UserList = ({users, deleteUser, editUser, groups})  => {
 
     const sortedUsers = _.sortBy(users, ['lastName', 'firstName']);
 
@@ -43,7 +43,6 @@ UserList.propTypes = {
     users: PropTypes.array,
     deleteUser: PropTypes.func,
     editUser: PropTypes.func,
-    isEditingUser: PropTypes.bool,
     groups: PropTypes.array,
 };
 

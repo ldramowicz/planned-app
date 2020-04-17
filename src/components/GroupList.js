@@ -23,10 +23,10 @@ const GroupList = ({groups, deleteGroup, editGroup, users})  => {
                 <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{group.label}</td>
-                    <td>{users.map((user, index) => (
-                        _.includes(user.groups, group.value) ?
+                    <td>{users.map((user, index) => {
+                        return _.includes(user.groups, group.value) ?
                             <div key={index}>{user.lastName + ' ' + user.firstName}</div> : null
-                        ))}
+                    })}
                     </td>
                     <td>
                         <Button variant="outline-primary" onClick={() => deleteGroup(group.value)}>Delete

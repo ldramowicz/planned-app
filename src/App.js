@@ -67,9 +67,7 @@ const App = () => {
     };
 
     const editGroup = id => {
-        console.log("Edit group id = ", id);
         let result = groups.find(group => group.value === id);
-        console.log("result = ", result);
         setEditingGroup(true);
         setCurrentGroup(result);
     };
@@ -80,10 +78,10 @@ const App = () => {
     };
 
     const deleteGroup = id => {
-        console.log('id = ', id);
-        //console.log("Filter! = ", users.filter(user => user.groups['value'].includes(id)))
-        //let mediumFilter = id => users.filter(item => item.groups.value.includes(id));
-        console.log("aaa = ", users.map(user => (_.without(user.groups, id))))
+        users.map(user => {
+            user.groups.filter(userGroup => userGroup !== id)
+            _.set(user, 'groups', user.groups.filter(userGroup => userGroup !== id));
+        })
         setGroups(groups.filter(group => group.value !== id));
     };
 
